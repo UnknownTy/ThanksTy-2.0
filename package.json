@@ -2,10 +2,10 @@
   "name": "thanksty-v2",
   "version": "1.0.0",
   "description": "A Discordbot written primarily in Typescript that sends links for anything at certain times.",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "jest",
-    "start": "index.js"
+    "start": "node src/index.ts"
   },
   "jest": {
     "testEnvironment": "node",
