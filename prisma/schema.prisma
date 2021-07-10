@@ -9,3 +9,34 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model link { // The base links that the bot will send to users upon request.
+  id     Int @id @default(dbgenerated())
+  name   String // Name of the class / what the link is fore
+  day    String // The day the link should work (Monday, Tuesday, etc...)
+  time   String // The time for the bot to check, in 24hr Format (14:00)
+  URL    String // The actual link to be sent
+  end    Int? @default(2) //How long the class is in hours (Defualt 2)
+  channel     channel @relation(fields: [channel_ID], references: [id])
+  channel_ID  Int
+}
+
+model guild { //Guilds are how the bot knows what server the data is fore
+  id  Int @id
+  owner_ID  Int // Guild's creator
+  channels  Int[] // The channels that have links attached to them
+  users     user[] @relation("GuildUsers")
+}
+
+model channel { //Links must be attached to a speicific channel in a server
+  id    Int @id
+  //NOTE: This is not necessary, mostly for debugging to know where a link should be
+  name  String //Name of the channel a link is attached to
+  links         link[] //The links attached tot he channel
+}
+
+model user { // Users can use the website to edit & view link data
+  user_ID     Int @id
+  guilds      guild[] @relation("GuildUsers")
+  user_name   String
+}
