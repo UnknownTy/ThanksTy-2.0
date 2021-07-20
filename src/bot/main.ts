@@ -21,9 +21,9 @@ export async function start() {
         await client.initSlashes();
     })
     
-    // client.on("interactionCreate", (interaction) => {
-    //     client.executeSlash(interaction);
-    // })
+    client.on("interactionCreate", (interaction) => {
+        client.executeSlash(interaction);
+    })
     
     await client.login(process.env.BOT_TOKEN! as string)
 }
